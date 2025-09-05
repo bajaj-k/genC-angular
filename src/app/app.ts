@@ -1,18 +1,23 @@
+
 import { Component } from '@angular/core';
-import { UserComponent } from './user-component/user-component';
+import {IUser} from '../model/Iuser';
+import { UserComponent } from './user/user';
+
 
 @Component({
   selector: 'app-root',
   imports: [UserComponent],
+  standalone : true,
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 
 export class AppComponent {
 
+  count : number = 0; 
+  message : string = '';
   
-  count : number = 0 ;
-userList : IUser[]= [
+  userList : IUser[]= [
     {
     name : 'Alice',
     email : 'alice@email.com' , 
@@ -37,10 +42,9 @@ userList : IUser[]= [
   selectedUser : IUser = this.userList[0];
 
   onClick(){
-    this.count ++;
-    if(this.count < this.userList.length ){
-      this.selectedUser = this.userList[this.count];
-    }
-   
-  }
+     this.count++;
+    this.selectedUser = this.userList[this.count % this.userList.length];
+    
+}
+
 }
